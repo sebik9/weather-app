@@ -46,10 +46,14 @@
         </div>
         <div class="rightSide">
           <div class="upcoming">
-            <div class="">Information 1</div>
-            <div class="">Information 2</div>          
-            <div class="">Information 3</div>
-            <div class="">Information 4</div>   
+            <div class="upcTop">
+              <div class="segment1">Information 1</div>
+              <div class="segment2">Information 2</div>     
+            </div>
+            <div class="upcBot">
+              <div class="segment1">Information 3</div>
+              <div class="segment2">Information 4</div>  
+            </div> 
           </div> 
         </div>
       </div>
@@ -172,6 +176,8 @@ export default {
 
 .upcoming {
   position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .leftSide {
@@ -183,4 +189,29 @@ export default {
   width: 60%;
   background-color: blue;
 }
+
+.upcTop {
+  display: flex;
+  width: 100%;
+  height: 50%;
+  background-color: yellow;
+}
+
+.upcBot {
+  display: flex;
+  width: 100%;
+  height: 50%;
+  background-color: green;
+}
+
+.segment1 {
+  width: 50%;
+  height: 100%; 
+}
+
+.segment2 {
+  width: 50%;
+  height: 100%;
+}
+
 </style>
