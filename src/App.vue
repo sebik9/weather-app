@@ -3,6 +3,7 @@
     <h1>Vue weather App</h1>
     <input class="userInput" v-model="city" placeholder=" Enter city...">
     <button @click="getweather">Submit</button>
+
     <div v-if="weather">
       <h2>current weather in {{ weather.location.name }}, {{ weather.location.country }}</h2>
       <div class="top-bar">
@@ -30,6 +31,35 @@
           
         </div>
     </div>
+
+    <div v-else>
+      <h2>--</h2>
+      <p> {{ currentDate }}, {{ currentTime }}</p>
+      
+      <div class="top-bar">
+        <div class="top-left">
+          <p class="currentTempElse">--°C</p>
+        </div>
+
+        <div class="top-right">
+
+            <div class="column">
+              <div class="info-box">Information 1</div>
+              <div class="info-box">Information 2</div>
+            </div>
+          <div class="column">
+              <div class="info-box">Information 3</div>
+              <div class="info-box">Information 4</div>
+          </div>
+
+        </div>
+      </div>
+        <div class="other-temp">
+          <p>Status: --</p>
+          <p>Humidity: --%</p>
+        </div>
+
+    </div>
   </div>
 </template>
 
@@ -39,7 +69,12 @@ export default {
     return {
       city: "",
       weather: null,
+      currentDate: "",
+      currentTime: "",
     };
+  },
+  mounted() {
+    this.showDate();
   },
   methods: {
     getweather() {
@@ -56,6 +91,27 @@ export default {
           console.error("Error fetching weather data: ", error);
         });
     },
+    showDate() {
+      const currentDate = new Date();
+
+      const monthNames = [
+        "January", "February", "March", "April",
+        "May", "June", "July", "August",
+        "September", "October", "November", "December"
+      ];
+
+      // Get the current date
+      const day = currentDate.getDate();
+      const monthIndex = currentDate.getMonth(); 
+
+      // Get the current time
+      const hours = currentDate.getHours();
+      const minutes = currentDate.getMinutes();
+
+      
+      this.currentDate = `${day}, ${monthNames[monthIndex]}`;
+      this.currentTime = `${hours}:${minutes}`;
+    },
   },
 };
 </script>
@@ -70,6 +126,12 @@ export default {
 
 .currentTemp {
   font-size: 30px;
+  
+}
+
+.currentTempElse {
+  font-size: 30px;
+  margin-top: 50px;
 }
 
 .userInput {
