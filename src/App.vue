@@ -8,7 +8,6 @@
       <h2>current weather in {{ weather.location.name }}, {{ weather.location.country }}</h2>
       <div class="top-bar">
         <div class="top-left">
-          <img class="icon" :src="weather.current.condition.icon" alt="weather icon">
           <p class="currentTemp">{{ weather.current.temp_c }}°C</p>
         </div>
 
@@ -33,33 +32,30 @@
     </div>
 
     <div v-else>
-      <h2>--</h2>
-      <p> {{ currentDate }}, {{ currentTime }}</p>
-      
-      <div class="top-bar">
-        <div class="top-left">
-          <p class="currentTempElse">--°C</p>
-        </div>
 
-        <div class="top-right">
-
-            <div class="column">
-              <div class="info-box">Information 1</div>
-              <div class="info-box">Information 2</div>
-            </div>
-          <div class="column">
-              <div class="info-box">Information 3</div>
-              <div class="info-box">Information 4</div>
+      <div class="app">
+        <div class="leftSide">
+          <div class="location">
+            <h2 class="locCit">City</h2>
+            <p class="date"> {{ currentDate }}, {{ currentTime }}</p>  
+          </div>               
+          <div class="todayTempStatus">
+            <p class="todayTemp">20°C</p>   
+            <p class="todayStaus">Broken clouds</p>
           </div>
-
+        </div>
+        <div class="rightSide">
+          <div class="upcoming">
+            <div class="">Information 1</div>
+            <div class="">Information 2</div>          
+            <div class="">Information 3</div>
+            <div class="">Information 4</div>   
+          </div> 
         </div>
       </div>
-        <div class="other-temp">
-          <p>Status: --</p>
-          <p>Humidity: --%</p>
-        </div>
 
     </div>
+
   </div>
 </template>
 
@@ -124,14 +120,21 @@ export default {
     box-sizing: border-box;
 }
 
-.currentTemp {
-  font-size: 30px;
-  
+.app {
+  background-color: aqua;
+  width: 1000px;
+  height: 600px;
+  position: relative;
+  display: flex;
 }
 
-.currentTempElse {
+.todayTempStatus {
+  position: relative;
   font-size: 30px;
-  margin-top: 50px;
+  padding-top: 110px;
+  padding-left: 50px;
+  background-color: brown; 
+  height: calc(100% - 181px);
 }
 
 .userInput {
@@ -141,42 +144,43 @@ export default {
   border-style: solid;
 }
 
-.top-bar{
-  display: flex;
+.location {
   position: relative;
-  width: 500px;
-  height: 100px;
-  background-color: red;
+  padding-left: 50px;
+  padding-top: 90px;
+  opacity: 0.6;
+  color: black;
+  background-color: blueviolet;
 }
 
-.top-left {
-  background-color: yellow;
-  position: relative;
-  width: 50%;
-  height: 100%;
-  text-align: center;
+.date {
+  padding-top: 10px;
+  font-size: 20px;
 }
 
-.top-right {
-  position: relative;
-  width: 50%;
-  height: 100%;
-  display: flex;
-  text-align: center;
-  justify-content: center;
+.locCit {
+  font-size: 50px;
 }
 
-.column {
-  width: 50%;
-  height: 50%;
-  position: relative;
-  }
+.todayTemp {
+  font-size: 70px;
+}
 
-.info-box {
+.todayStaus {
+  font-size: 30px;
+}
+
+.upcoming {
   position: relative;
-  width: 100%;
+}
+
+.leftSide {
+  width: 40%;
   height: 100%;
-  text-align: center;
-  padding-top: 13px;
+}
+
+.rightSide {
+  width: 60%;
+  background-color: blue;
 }
 </style>
