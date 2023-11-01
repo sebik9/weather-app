@@ -5,30 +5,54 @@
     <button @click="getweather">Submit</button>
 
     <div v-if="weather">
-      <h2>current weather in {{ weather.location.name }}, {{ weather.location.country }}</h2>
-      <div class="top-bar">
-        <div class="top-left">
-          <p class="currentTemp">{{ weather.current.temp_c }}°C</p>
-        </div>
-
-        <div class="top-right">
-
-            <div class="column">
-              <div class="info-box">Information 1</div>
-              <div class="info-box">Information 2</div>
-            </div>
-          <div class="column">
-              <div class="info-box">Information 3</div>
-              <div class="info-box">Information 4</div>
+      <div class="app">
+        <div class="leftSide">
+          <div class="location">
+            <h2 class="locCit">{{ weather.location.name }}</h2>
+            <p class="date"> {{ currentDate }}, {{ currentTime }}</p>  
+          </div>               
+          <div class="todayTempStatus">
+            <p class="todayTemp">{{ weather.current.temp_c }}°C</p>   
+            <p class="todayStaus">{{ weather.current.condition.text }}</p>
           </div>
-
+        </div>
+        <div class="rightSide">
+          <div class="upcoming">
+            <div class="upcTop">
+              <div class="segment1">
+                <p>{{ upcomingDays[0] }}</p>
+                <p>status icon</p>
+                <p>status text</p>
+                <p>temp</p>
+                <p>wind info</p>
+              </div>
+              <div class="segment2">
+                <p>{{ upcomingDays[1] }}</p>
+                <p>status icon</p>
+                <p>status text</p>
+                <p>temp</p>
+                <p>wind info</p>
+              </div>     
+            </div>
+            <div class="upcBot">
+              <div class="segment1">
+                <p>{{ upcomingDays[2] }}</p>
+                <p>status icon</p>
+                <p>status text</p>
+                <p>temp</p>
+                <p>wind info</p>
+              </div>
+              <div class="segment2">
+                <p>Scrap</p>
+                <p>PH</p>
+                <p>PH</p>
+                <p>PH</p>
+                <p>PH</p>
+              </div>  
+            </div> 
+          </div> 
         </div>
       </div>
-        <div class="other-temp">
-          <p>weather: {{ weather.current.condition.text }}</p>
-          <p>Humidity: {{ weather.current.humidity }}%</p>
-          
-        </div>
     </div>
 
     <div v-else>
@@ -47,12 +71,36 @@
         <div class="rightSide">
           <div class="upcoming">
             <div class="upcTop">
-              <div class="segment1">Information 1</div>
-              <div class="segment2">Information 2</div>     
+              <div class="segment1">
+                <p>Day 1</p>
+                <p>status icon</p>
+                <p>status text</p>
+                <p>temp</p>
+                <p>wind info</p>
+              </div>
+              <div class="segment2">
+                <p>Day 2</p>
+                <p>status icon</p>
+                <p>status text</p>
+                <p>temp</p>
+                <p>wind info</p>
+              </div>     
             </div>
             <div class="upcBot">
-              <div class="segment1">Information 3</div>
-              <div class="segment2">Information 4</div>  
+              <div class="segment1">
+                <p>Day 3</p>
+                <p>status icon</p>
+                <p>status text</p>
+                <p>temp</p>
+                <p>wind info</p>
+              </div>
+              <div class="segment2">
+                <p>Day 4</p>
+                <p>status icon</p>
+                <p>status text</p>
+                <p>temp</p>
+                <p>wind info</p>
+              </div>  
             </div> 
           </div> 
         </div>
@@ -69,8 +117,11 @@ export default {
     return {
       city: "",
       weather: null,
+      forecast: null,
       currentDate: "",
       currentTime: "",
+      dayString: "",
+      upcomingDays: [],
     };
   },
   mounted() {
@@ -78,10 +129,10 @@ export default {
   },
   methods: {
     getweather() {
-      const apiKey = "8eb4612660944712b23103312232610"; // 
+      const apiKey = "8eb4612660944712b23103312232610"; 
       const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${this.city}`;
 
-      // Using fetch for the HTTP request
+      
       fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
@@ -90,9 +141,31 @@ export default {
         .catch(error => {
           console.error("Error fetching weather data: ", error);
         });
+
+        this.getForecast(apiKey);
     },
+
+    getForecast(apiKey) {
+      const forecastUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${this.city}&days=3`;
+
+      fetch(forecastUrl)
+        .then(response => response.json())
+        .then(data => {
+          this.forecast = data;
+        })
+        .catch(error => {
+          console.error("Error fetching forecast", error);
+          });
+
+    },
+
     showDate() {
       const currentDate = new Date();
+
+      const dayNames = [
+        "Sunday", "Monday", "Tuesday", "Wednesday",
+        "Thursday", "Friday", "Saturday"
+      ];
 
       const monthNames = [
         "January", "February", "March", "April",
@@ -101,6 +174,7 @@ export default {
       ];
 
       // Get the current date
+      const dayIndex = currentDate.getDay();
       const day = currentDate.getDate();
       const monthIndex = currentDate.getMonth(); 
 
@@ -108,9 +182,18 @@ export default {
       const hours = currentDate.getHours();
       const minutes = currentDate.getMinutes();
 
+      const today = new Date().getDay();
+      const upcomingDays = [];
+      for (let i = 1; i <= 3; i++) {
+      const nextDayIndex = (today + i) % 7;
+      upcomingDays.push(dayNames[nextDayIndex]);
+    }
+
       
       this.currentDate = `${day}, ${monthNames[monthIndex]}`;
       this.currentTime = `${hours}:${minutes}`;
+      this.dayString = `${dayNames[dayIndex]}`;
+      this.upcomingDays = upcomingDays
     },
   },
 };
@@ -206,12 +289,16 @@ export default {
 
 .segment1 {
   width: 50%;
-  height: 100%; 
+  height: 100%;
+  text-align: center;
+  padding-top: 100px;
 }
 
 .segment2 {
   width: 50%;
   height: 100%;
+  text-align: center;
+  padding-top: 100px;
 }
 
 </style>
