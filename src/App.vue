@@ -19,28 +19,28 @@
         <div class="rightSide">
           <div class="upcoming">
             <div class="upcTop">
-              <div class="segment1">
+              <div v-if="upcoming && upcoming.forecast" class="segment1">
                 <p>{{ upcomingDays[0] }}</p>
-                <p>status icon</p>
-                <p>status text</p>
-                <p>temp</p>
-                <p>wind info</p>
+                <p><img :src=" upcoming.forecast.forecastday[1].day.condition.icon" alt=""></p>
+                <p>{{ upcoming.forecast.forecastday[1].day.condition.text }}</p>
+                <p>{{ upcoming.forecast.forecastday[1].day.avgtemp_c }}°C</p>
+                <p>{{ upcoming.forecast.forecastday[1].day.maxwind_kph }} km/h</p>
               </div>
-              <div class="segment2">
+              <div v-if="upcoming && upcoming.forecast" class="segment2">
                 <p>{{ upcomingDays[1] }}</p>
-                <p>status icon</p>
-                <p>status text</p>
-                <p>temp</p>
-                <p>wind info</p>
+                <p><img :src=" upcoming.forecast.forecastday[2].day.condition.icon" alt=""></p>
+                <p>{{ upcoming.forecast.forecastday[2].day.condition.text }}</p>
+                <p>{{ upcoming.forecast.forecastday[2].day.avgtemp_c }}°C</p>
+                <p>{{ upcoming.forecast.forecastday[2].day.maxwind_kph }} km/h</p>
               </div>     
             </div>
             <div class="upcBot">
-              <div class="segment1">
+              <div v-if="upcoming && upcoming.forecast" class="segment1">
                 <p>{{ upcomingDays[2] }}</p>
-                <p>status icon</p>
-                <p>status text</p>
-                <p>temp</p>
-                <p>wind info</p>
+                <p><img :src=" upcoming.forecast.forecastday[3].day.condition.icon" alt=""></p>
+                <p>{{ upcoming.forecast.forecastday[3].day.condition.text }}</p>
+                <p>{{ upcoming.forecast.forecastday[3].day.avgtemp_c }}°C</p>
+                <p>{{ upcoming.forecast.forecastday[3].day.maxwind_kph }} km/h</p>
               </div>
               <div class="segment2">
                 <p>Scrap</p>
@@ -60,46 +60,46 @@
       <div class="app">
         <div class="leftSide">
           <div class="location">
-            <h2 class="locCit">City</h2>
+            <h2 class="locCit">-,-</h2>
             <p class="date"> {{ currentDate }}, {{ currentTime }}</p>  
           </div>               
           <div class="todayTempStatus">
-            <p class="todayTemp">20°C</p>   
-            <p class="todayStaus">Broken clouds</p>
+            <p class="todayTemp">-,-°C</p>   
+            <p class="todayStaus">-,-</p>
           </div>
         </div>
         <div class="rightSide">
           <div class="upcoming">
             <div class="upcTop">
               <div class="segment1">
-                <p>Day 1</p>
+                <p>{{ upcomingDays[0] }}</p>
                 <p>status icon</p>
                 <p>status text</p>
-                <p>temp</p>
-                <p>wind info</p>
+                <p></p>
+                <p>-,- km/h</p>
               </div>
               <div class="segment2">
-                <p>Day 2</p>
+                <p>{{ upcomingDays[1] }}</p>
                 <p>status icon</p>
                 <p>status text</p>
-                <p>temp</p>
-                <p>wind info</p>
+                <p>avg -,-°C</p>
+                <p>-,- km/h</p>
               </div>     
             </div>
             <div class="upcBot">
               <div class="segment1">
-                <p>Day 3</p>
+                <p>{{ upcomingDays[2] }}</p>
                 <p>status icon</p>
                 <p>status text</p>
-                <p>temp</p>
-                <p>wind info</p>
+                <p>avg -,-°C</p>
+                <p>-,- km/h</p>
               </div>
               <div class="segment2">
-                <p>Day 4</p>
-                <p>status icon</p>
-                <p>status text</p>
-                <p>temp</p>
-                <p>wind info</p>
+                <p>PH</p>
+                <p>PH</p>
+                <p>PH</p>
+                <p>PH</p>
+                <p>PH</p>
               </div>  
             </div> 
           </div> 
@@ -117,7 +117,7 @@ export default {
     return {
       city: "",
       weather: null,
-      forecast: null,
+      upcoming: null,
       currentDate: "",
       currentTime: "",
       dayString: "",
@@ -137,21 +137,22 @@ export default {
         .then(response => response.json())
         .then(data => {
           this.weather = data;
+          this.getForecast(apiKey);         
         })
         .catch(error => {
           console.error("Error fetching weather data: ", error);
         });
-
-        this.getForecast(apiKey);
+        
     },
 
     getForecast(apiKey) {
-      const forecastUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${this.city}&days=3`;
+      const forecastUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${this.city}&days=4`;
 
       fetch(forecastUrl)
         .then(response => response.json())
         .then(data => {
-          this.forecast = data;
+          this.upcoming = data;
+          console.log(data)
         })
         .catch(error => {
           console.error("Error fetching forecast", error);
@@ -291,14 +292,14 @@ export default {
   width: 50%;
   height: 100%;
   text-align: center;
-  padding-top: 100px;
+  padding-top: 90px;
 }
 
 .segment2 {
   width: 50%;
   height: 100%;
   text-align: center;
-  padding-top: 100px;
+  padding-top: 90px;
 }
 
 </style>
