@@ -137,7 +137,8 @@ export default {
         .then(response => response.json())
         .then(data => {
           this.weather = data;
-          this.getForecast(apiKey);         
+          this.getForecast(apiKey);
+          this.showDate();        
         })
         .catch(error => {
           console.error("Error fetching weather data: ", error);
