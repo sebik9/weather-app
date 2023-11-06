@@ -23,14 +23,14 @@
                 <p>{{ upcomingDays[0] }}</p>
                 <p><img :src=" upcoming.forecast.forecastday[1].day.condition.icon" alt=""></p>
                 <p>{{ upcoming.forecast.forecastday[1].day.condition.text }}</p>
-                <p>{{ upcoming.forecast.forecastday[1].day.avgtemp_c }}°C</p>
+                <p class="avgTemp">{{ upcoming.forecast.forecastday[1].day.avgtemp_c }}°C</p>
                 <p>{{ upcoming.forecast.forecastday[1].day.maxwind_kph }} km/h</p>
               </div>
               <div v-if="upcoming && upcoming.forecast" class="segment2">
                 <p>{{ upcomingDays[1] }}</p>
                 <p><img :src=" upcoming.forecast.forecastday[2].day.condition.icon" alt=""></p>
                 <p>{{ upcoming.forecast.forecastday[2].day.condition.text }}</p>
-                <p>{{ upcoming.forecast.forecastday[2].day.avgtemp_c }}°C</p>
+                <p class="avgTemp">{{ upcoming.forecast.forecastday[2].day.avgtemp_c }}°C</p>
                 <p>{{ upcoming.forecast.forecastday[2].day.maxwind_kph }} km/h</p>
               </div>     
             </div>
@@ -39,7 +39,7 @@
                 <p>{{ upcomingDays[2] }}</p>
                 <p><img :src=" upcoming.forecast.forecastday[3].day.condition.icon" alt=""></p>
                 <p>{{ upcoming.forecast.forecastday[3].day.condition.text }}</p>
-                <p>{{ upcoming.forecast.forecastday[3].day.avgtemp_c }}°C</p>
+                <p class="avgTemp">{{ upcoming.forecast.forecastday[3].day.avgtemp_c }}°C</p>
                 <p>{{ upcoming.forecast.forecastday[3].day.maxwind_kph }} km/h</p>
               </div>
               <div class="segment2">
@@ -206,14 +206,18 @@ export default {
     margin:0;
     padding:0;
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
 .app {
-  background-color: aqua;
   width: 1000px;
   height: 600px;
   position: relative;
   display: flex;
+  background-image: url(src/assets/cloudbg.jpg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  color: white;
 }
 
 .todayTempStatus {
@@ -221,8 +225,8 @@ export default {
   font-size: 30px;
   padding-top: 110px;
   padding-left: 50px;
-  background-color: brown; 
-  height: calc(100% - 181px);
+  height: 60%;
+  opacity: 0.6;
 }
 
 .userInput {
@@ -236,9 +240,8 @@ export default {
   position: relative;
   padding-left: 50px;
   padding-top: 90px;
+  height: 40%;
   opacity: 0.6;
-  color: black;
-  background-color: blueviolet;
 }
 
 .date {
@@ -271,21 +274,18 @@ export default {
 
 .rightSide {
   width: 60%;
-  background-color: blue;
 }
 
 .upcTop {
   display: flex;
   width: 100%;
   height: 50%;
-  background-color: yellow;
 }
 
 .upcBot {
   display: flex;
   width: 100%;
   height: 50%;
-  background-color: green;
 }
 
 .segment1 {
@@ -293,6 +293,7 @@ export default {
   height: 100%;
   text-align: center;
   padding-top: 90px;
+  opacity: 0.6;
 }
 
 .segment2 {
@@ -300,6 +301,14 @@ export default {
   height: 100%;
   text-align: center;
   padding-top: 90px;
+  opacity: 0.6;
 }
+
+.avgTemp {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+
 
 </style>
