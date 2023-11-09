@@ -8,47 +8,47 @@
       <div class="app">
         <div class="leftSide">
           <div class="location">
-            <h2 class="locCit">{{ weather.location.name }}</h2>
-            <p class="date"> {{ currentDate }}, {{ currentTime }}</p>  
-          </div>               
+            <h2 class="locCit">{{ weather.name }}</h2>
+            <p class="date">{{ currentDate }}, {{ currentTime }}</p>
+          </div>
           <div class="todayTempStatus">
-            <p class="todayTemp">{{ weather.current.temp_c }}°C</p>   
-            <p class="todayStaus">{{ weather.current.condition.text }}</p>
+            <p class="todayTemp">{{ weather.main.temp }}°C</p>
+            <p class="todayStatus">{{ weather.weather[0].description }}</p>
           </div>
         </div>
         <div class="rightSide">
           <div class="upcoming">
             <div class="upcTop">
-              <div v-if="upcoming && upcoming.forecast" class="segment1">
+              <div v-if="upcoming && upcoming.list" class="segment1">
                 <p>{{ upcomingDays[0] }}</p>
-                <p><img :src=" upcoming.forecast.forecastday[1].day.condition.icon" alt=""></p>
-                <p>{{ upcoming.forecast.forecastday[1].day.condition.text }}</p>
-                <p class="avgTemp">{{ upcoming.forecast.forecastday[1].day.avgtemp_c }}°C</p>
-                <p>{{ upcoming.forecast.forecastday[1].day.maxwind_kph }} km/h</p>
+                <p><img :src="'http://openweathermap.org/img/w/' + upcoming.list[1].weather[0].icon + '.png'" alt=""></p>
+                <p>{{ upcoming.list[1].weather[0].description }}</p>
+                <p class="avgTemp">{{ upcoming.list[1].main.temp }}°C</p>
+                <p>{{ upcoming.list[1].wind.speed }} km/h</p>
               </div>
-              <div v-if="upcoming && upcoming.forecast" class="segment2">
+              <div v-if="upcoming && upcoming.list" class="segment2">
                 <p>{{ upcomingDays[1] }}</p>
-                <p><img :src=" upcoming.forecast.forecastday[2].day.condition.icon" alt=""></p>
-                <p>{{ upcoming.forecast.forecastday[2].day.condition.text }}</p>
-                <p class="avgTemp">{{ upcoming.forecast.forecastday[2].day.avgtemp_c }}°C</p>
-                <p>{{ upcoming.forecast.forecastday[2].day.maxwind_kph }} km/h</p>
-              </div>     
+                <p><img :src="'http://openweathermap.org/img/w/' + upcoming.list[2].weather[0].icon + '.png'" alt=""></p>
+                <p>{{ upcoming.list[2].weather[0].description }}</p>
+                <p class="avgTemp">{{ upcoming.list[2].main.temp }}°C</p>
+                <p>{{ upcoming.list[2].wind.speed }} km/h</p>
+              </div>
             </div>
             <div class="upcBot">
-              <div v-if="upcoming && upcoming.forecast" class="segment1">
+              <div v-if="upcoming && upcoming.list" class="segment1">
                 <p>{{ upcomingDays[2] }}</p>
-                <p><img :src=" upcoming.forecast.forecastday[3].day.condition.icon" alt=""></p>
-                <p>{{ upcoming.forecast.forecastday[3].day.condition.text }}</p>
-                <p class="avgTemp">{{ upcoming.forecast.forecastday[3].day.avgtemp_c }}°C</p>
-                <p>{{ upcoming.forecast.forecastday[3].day.maxwind_kph }} km/h</p>
+                <p><img :src="'http://openweathermap.org/img/w/' + upcoming.list[3].weather[0].icon + '.png'" alt=""></p>
+                <p>{{ upcoming.list[3].weather[0].description }}</p>
+                <p class="avgTemp">{{ upcoming.list[3].main.temp }}°C</p>
+                <p>{{ upcoming.list[3].wind.speed }} km/h</p>
               </div>
-              <div class="segment2">
-                <p>Scrap</p>
-                <p>PH</p>
-                <p>PH</p>
-                <p>PH</p>
-                <p>PH</p>
-              </div>  
+              <div v-if="upcoming && upcoming.list" class="segment2">
+                <p>{{ upcomingDays[3] }}</p>
+                <p><img :src="'http://openweathermap.org/img/w/' + upcoming.list[4].weather[0].icon + '.png'" alt=""></p>
+                <p>{{ upcoming.list[4].weather[0].description }}</p>
+                <p class="avgTemp">{{ upcoming.list[4].main.temp }}°C</p>
+                <p>{{ upcoming.list[4].wind.speed }} km/h</p>
+              </div>
             </div> 
           </div> 
         </div>
@@ -129,8 +129,8 @@ export default {
   },
   methods: {
     getweather() {
-      const apiKey = "8eb4612660944712b23103312232610"; 
-      const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${this.city}`;
+      const apiKey = "d467105a74a4fa1d4a6e9f7b760c3c0b"; 
+      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${apiKey}&units=metric`;
 
       
       fetch(apiUrl)
@@ -147,7 +147,7 @@ export default {
     },
 
     getForecast(apiKey) {
-      const forecastUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${this.city}&days=4`;
+      const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${this.city}&appid=${apiKey}&units=metric`;
 
       fetch(forecastUrl)
         .then(response => response.json())
@@ -186,7 +186,7 @@ export default {
 
       const today = new Date().getDay();
       const upcomingDays = [];
-      for (let i = 1; i <= 3; i++) {
+      for (let i = 1; i <= 4; i++) {
       const nextDayIndex = (today + i) % 7;
       upcomingDays.push(dayNames[nextDayIndex]);
     }
