@@ -153,7 +153,6 @@ export default {
         .then(response => response.json())
         .then(data => {
           this.upcoming = data;
-          console.log(data)
         })
         .catch(error => {
           console.error("Error fetching forecast", error);
