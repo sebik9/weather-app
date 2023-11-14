@@ -309,6 +309,40 @@ export default {
   padding-bottom: 5px;
 }
 
+@media screen and (max-width: 599px) {
+
+  .app {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-image: none;
+    background-color: yellow;
+    flex-direction: column;
+    color: black;
+  }
+
+  .leftSide {
+    width: 100%;
+    height: 100%;
+  }
+
+  .location {
+    width: 100%;
+    height: 50%;  
+    background-color: purple;
+    text-align: center;
+    padding-left: 0;
+  }
+
+  .todayTempStatus {
+    height: 50%;
+    background-color: pink;
+    text-align: center;
+    padding-left: 0;
+  }
+  
+}
+
 
 
 </style>
