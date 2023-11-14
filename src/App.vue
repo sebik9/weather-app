@@ -316,29 +316,39 @@ export default {
     height: 100%;
     display: flex;
     background-image: none;
-    background-color: yellow;
+    background-color: blue;
     flex-direction: column;
-    color: black;
   }
 
   .leftSide {
     width: 100%;
-    height: 100%;
+    height: 100dvh;
   }
 
   .location {
     width: 100%;
     height: 50%;  
-    background-color: purple;
     text-align: center;
     padding-left: 0;
+    padding-top: calc(52% - 100px);
+  }
+  .locCit {
+    padding-bottom: 20px;
   }
 
   .todayTempStatus {
     height: 50%;
-    background-color: pink;
     text-align: center;
     padding-left: 0;
+    background-color: pink;
+    padding-top: calc(48% - 100px);
+  }
+  .todayTemp {
+    padding-bottom: 25px
+  }
+  .rightSide {
+    width: 100%;
+    height: 50dvh;
   }
   
 }
