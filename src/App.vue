@@ -21,14 +21,14 @@
             <div class="upcTop">
               <div v-if="upcoming && upcoming.list" class="segment1">
                 <p>{{ upcomingDays[0] }}</p>
-                <p><img :src="'http://openweathermap.org/img/w/' + upcoming.list[1].weather[0].icon + '.png'" alt=""></p>
+                <p><img :src="'http://openweathermap.org/img/w/' + upcoming.list[1].weather[0].icon + '.png'"></p>
                 <p>{{ upcoming.list[1].weather[0].description }}</p>
                 <p class="avgTemp">{{ upcoming.list[1].main.temp }}°C</p>
                 <p>{{ upcoming.list[1].wind.speed }} km/h</p>
               </div>
               <div v-if="upcoming && upcoming.list" class="segment2">
                 <p>{{ upcomingDays[1] }}</p>
-                <p><img :src="'http://openweathermap.org/img/w/' + upcoming.list[2].weather[0].icon + '.png'" alt=""></p>
+                <p><img :src="'http://openweathermap.org/img/w/' + upcoming.list[2].weather[0].icon + '.png'"></p>
                 <p>{{ upcoming.list[2].weather[0].description }}</p>
                 <p class="avgTemp">{{ upcoming.list[2].main.temp }}°C</p>
                 <p>{{ upcoming.list[2].wind.speed }} km/h</p>
@@ -37,14 +37,14 @@
             <div class="upcBot">
               <div v-if="upcoming && upcoming.list" class="segment1">
                 <p>{{ upcomingDays[2] }}</p>
-                <p><img :src="'http://openweathermap.org/img/w/' + upcoming.list[3].weather[0].icon + '.png'" alt=""></p>
+                <p><img :src="'http://openweathermap.org/img/w/' + upcoming.list[3].weather[0].icon + '.png'"></p>
                 <p>{{ upcoming.list[3].weather[0].description }}</p>
                 <p class="avgTemp">{{ upcoming.list[3].main.temp }}°C</p>
                 <p>{{ upcoming.list[3].wind.speed }} km/h</p>
               </div>
               <div v-if="upcoming && upcoming.list" class="segment2">
                 <p>{{ upcomingDays[3] }}</p>
-                <p><img :src="'http://openweathermap.org/img/w/' + upcoming.list[4].weather[0].icon + '.png'" alt=""></p>
+                <p><img :src="'http://openweathermap.org/img/w/' + upcoming.list[4].weather[0].icon + '.png'"></p>
                 <p>{{ upcoming.list[4].weather[0].description }}</p>
                 <p class="avgTemp">{{ upcoming.list[4].main.temp }}°C</p>
                 <p>{{ upcoming.list[4].wind.speed }} km/h</p>
@@ -95,11 +95,11 @@
                 <p>-,- km/h</p>
               </div>
               <div class="segment2">
-                <p>PH</p>
-                <p>PH</p>
-                <p>PH</p>
-                <p>PH</p>
-                <p>PH</p>
+                <p>{{ upcomingDays[3] }}</p>
+                <p>status icon</p>
+                <p>status text</p>
+                <p>avg -,-°C</p>
+                <p>-,- km/h</p>
               </div>  
             </div> 
           </div> 
@@ -125,9 +125,11 @@ export default {
     };
   },
   mounted() {
+    //getch date on win load
     this.showDate();
   },
   methods: {
+    //current weather call
     getweather() {
       const apiKey = "d467105a74a4fa1d4a6e9f7b760c3c0b"; 
       const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&appid=${apiKey}&units=metric`;
@@ -146,6 +148,7 @@ export default {
         
     },
 
+    //forecast call
     getForecast(apiKey) {
       const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${this.city}&appid=${apiKey}&units=metric`;
 
@@ -163,11 +166,13 @@ export default {
     showDate() {
       const currentDate = new Date();
 
+      //day arr
       const dayNames = [
         "Sunday", "Monday", "Tuesday", "Wednesday",
         "Thursday", "Friday", "Saturday"
       ];
 
+      //mont aray
       const monthNames = [
         "January", "February", "March", "April",
         "May", "June", "July", "August",
@@ -183,6 +188,7 @@ export default {
       const hours = currentDate.getHours();
       const minutes = currentDate.getMinutes();
 
+      //loop for days
       const today = new Date().getDay();
       const upcomingDays = [];
       for (let i = 1; i <= 4; i++) {
@@ -190,7 +196,7 @@ export default {
       upcomingDays.push(dayNames[nextDayIndex]);
     }
 
-      
+      //display
       this.currentDate = `${day}, ${monthNames[monthIndex]}`;
       this.currentTime = `${hours}:${minutes}`;
       this.dayString = `${dayNames[dayIndex]}`;
@@ -203,10 +209,10 @@ export default {
 <style scoped>
 
 * {
-    margin:0;
-    padding:0;
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
 }
 
 .app {
