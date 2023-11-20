@@ -225,7 +225,7 @@ export default {
 
 .todayTempStatus {
   position: relative;
-  font-size: 30px;
+  font-size: 25px;
   padding-top: 110px;
   display: flex;
   flex-direction: column;
@@ -261,7 +261,7 @@ export default {
 }
 
 .todayTemp {
-  font-size: 70px;
+  font-size: 60px;
 }
 
 .todayStaus {
@@ -331,15 +331,16 @@ export default {
   .app {
     width: 100%;
     height: 100%;
+    max-height: 100%;
     display: flex;
-    background-image: none;
-    background-color: blue;
+    background-color: darkblue;
     flex-direction: column;
   }
 
   .leftSide {
     width: 100%;
     height: 100dvh;
+    background-color: darkblue;
   }
 
   .location {
@@ -351,21 +352,33 @@ export default {
   }
   .locCit {
     padding-bottom: 20px;
+    font-size: 12vw;
+  }
+
+  .date {
+    font-size: 5vw;
   }
 
   .todayTempStatus {
     height: 50%;
     text-align: center;
     padding-left: 0;
-    background-color: pink;
     padding-top: calc(48% - 100px);
+    font-size: 5vw;
   }
   .todayTemp {
-    padding-bottom: 25px
+    padding-bottom: 25px;
+    font-size: 12vw;
   }
   .rightSide {
     width: 100%;
     height: 50dvh;
+    background-color: darkblue;
+    font-size: 4vw;
+  }
+
+  .upcoming {
+    padding-bottom: 55px;
   }
   
 }
