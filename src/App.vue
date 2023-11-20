@@ -210,13 +210,16 @@ export default {
 }
 
 .app {
-  width: 1000px;
-  height: 600px;
+  width: 100%;
+  height: 100vh;
+  max-width: 1000px;
+  max-height: 600px;
   position: relative;
   display: flex;
+  flex-direction: row;
   background-image: url(src/assets/cloudbg.jpg);
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
   color: white;
 }
 
@@ -224,6 +227,8 @@ export default {
   position: relative;
   font-size: 30px;
   padding-top: 110px;
+  display: flex;
+  flex-direction: column;
   padding-left: 50px;
   height: 60%;
   opacity: 0.6;
@@ -240,6 +245,8 @@ export default {
   position: relative;
   padding-left: 50px;
   padding-top: 90px;
+  display: flex;
+  flex-direction: column;
   height: 40%;
   opacity: 0.6;
 }
@@ -263,6 +270,8 @@ export default {
 
 .upcoming {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100%;
 }
@@ -270,10 +279,14 @@ export default {
 .leftSide {
   width: 40%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .rightSide {
   width: 60%;
+  display: flex;
+  flex-direction: column;
 }
 
 .upcTop {
@@ -291,6 +304,8 @@ export default {
 .segment1 {
   width: 50%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
   text-align: center;
   padding-top: 90px;
   opacity: 0.6;
@@ -299,6 +314,8 @@ export default {
 .segment2 {
   width: 50%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
   text-align: center;
   padding-top: 90px;
   opacity: 0.6;
