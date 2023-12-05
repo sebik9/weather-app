@@ -125,7 +125,7 @@ export default {
     };
   },
   mounted() {
-    //getch date on win load
+    //fetch date on page load
     this.showDate();
   },
   methods: {
@@ -172,7 +172,7 @@ export default {
         "Thursday", "Friday", "Saturday"
       ];
 
-      //mont aray
+      //month arr
       const monthNames = [
         "January", "February", "March", "April",
         "May", "June", "July", "August",
